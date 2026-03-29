@@ -50,6 +50,54 @@ export type Database = {
         }
         Relationships: []
       }
+      site_settings: {
+        Row: {
+          key: string
+          updated_at: string
+          value: string
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          value: string
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          value?: string
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          created_at: string
+          id: string
+          is_visible: boolean
+          name: string
+          rating: number
+          sort_order: number
+          text: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_visible?: boolean
+          name: string
+          rating?: number
+          sort_order?: number
+          text: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_visible?: boolean
+          name?: string
+          rating?: number
+          sort_order?: number
+          text?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
