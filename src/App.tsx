@@ -8,6 +8,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import Index from "./pages/Index.tsx";
 import BlogList from "./pages/BlogList.tsx";
 import BlogPost from "./pages/BlogPost.tsx";
+import AuthPage from "./pages/AuthPage.tsx";
 import AdminLogin from "./pages/AdminLogin.tsx";
 import AdminDashboard from "./pages/AdminDashboard.tsx";
 import NotFound from "./pages/NotFound.tsx";
@@ -24,6 +25,7 @@ const App = () => (
           <AuthProvider>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/auth" element={<AuthPage />} />
               <Route path="/blog" element={<BlogList />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/admin/login" element={<AdminLogin />} />
