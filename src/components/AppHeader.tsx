@@ -39,14 +39,23 @@ const AppHeader = () => {
             </Button>
           </div>
         ) : (
-          <Button
-            size="sm"
-            variant="ghost"
-            className="text-primary-foreground hover:bg-primary-foreground/10 h-8 gap-1"
-            onClick={() => navigate("/auth")}
-          >
-            <LogIn size={16} /> Masuk
-          </Button>
+          <div className="flex items-center gap-1.5">
+            <Button
+              size="sm"
+              variant="ghost"
+              className="text-primary-foreground hover:bg-primary-foreground/10 h-8 gap-1"
+              onClick={() => navigate("/auth")}
+            >
+              <LogIn size={16} /> Masuk
+            </Button>
+            <Button
+              size="sm"
+              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 h-8 gap-1"
+              onClick={() => navigate("/auth?mode=signup")}
+            >
+              <UserPlus size={16} /> Daftar
+            </Button>
+          </div>
         )}
       </div>
     </header>
