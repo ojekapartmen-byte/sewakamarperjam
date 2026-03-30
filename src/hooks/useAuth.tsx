@@ -55,13 +55,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setUser(session?.user ?? null);
 
         if (session?.user) {
-          supabase.rpc("has_role", { _user_id: session.user.id, _role: "admin" as const })
-            .then(({ data }) => {
-              if (mounted) setIsAdmin(!!data);
-            })
-            .catch(() => {
-              if (mounted) setIsAdmin(false);
-            });
+          Promise.resolve(
+            supabase.rpc("has_role", { _user_id: session.user.id, _role: "admin" as const })
+          ).then(({ data }) => {
+            if (mounted) setIsAdmin(!!data);
+          }).catch(() => {
+            if (mounted) setIsAdmin(false);
+          });
         } else {
           setIsAdmin(false);
         }
