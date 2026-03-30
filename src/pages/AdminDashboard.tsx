@@ -235,6 +235,7 @@ const AdminDashboard = () => {
                         <Input type="number" defaultValue={room.price_daily} onBlur={(e) => updatePrice(room.id, "price_daily", e.target.value)} className="h-8 text-sm" />
                       </div>
                     </div>
+                    <RoomPhotos roomId={room.id} />
                   </div>
                 ))}
               </div>
