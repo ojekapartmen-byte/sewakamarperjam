@@ -146,10 +146,22 @@ const AdminDashboard = () => {
     toast({ title: "Pengaturan tersimpan" });
   };
 
-  if (loading || fetching) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <p className="text-muted-foreground">Memuat...</p>
+      </div>
+    );
+  }
+
+  if (!user || !isAdmin) {
+    return null;
+  }
+
+  if (fetching) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <p className="text-muted-foreground">Memuat data...</p>
       </div>
     );
   }
