@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -9,7 +9,8 @@ import { ArrowLeft, LogIn, UserPlus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const AuthPage = () => {
-  const [mode, setMode] = useState<"login" | "signup">("login");
+  const [searchParams] = useSearchParams();
+  const [mode, setMode] = useState<"login" | "signup">(searchParams.get("mode") === "signup" ? "signup" : "login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
