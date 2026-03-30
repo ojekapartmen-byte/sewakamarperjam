@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { LogOut, Plus, Trash2, ArrowLeft, DoorOpen, MessageSquare, Settings, Save, Star } from "lucide-react";
 import type { Tables } from "@/integrations/supabase/types";
+import RoomPhotos from "@/components/RoomPhotos";
 
 type Room = Tables<"rooms">;
 
@@ -234,6 +235,7 @@ const AdminDashboard = () => {
                         <Input type="number" defaultValue={room.price_daily} onBlur={(e) => updatePrice(room.id, "price_daily", e.target.value)} className="h-8 text-sm" />
                       </div>
                     </div>
+                    <RoomPhotos roomId={room.id} />
                   </div>
                 ))}
               </div>
