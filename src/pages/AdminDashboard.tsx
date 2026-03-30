@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { LogOut, Plus, Trash2, ArrowLeft, DoorOpen, MessageSquare, Settings, Save, Star } from "lucide-react";
 import type { Tables } from "@/integrations/supabase/types";
+import RoomPhotos from "@/components/RoomPhotos";
 
 type Room = Tables<"rooms">;
 
