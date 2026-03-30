@@ -10,38 +10,42 @@ import Testimonials from "@/components/Testimonials";
 import LocationSection from "@/components/LocationSection";
 import BottomNav from "@/components/BottomNav";
 import FloatingCTA from "@/components/FloatingCTA";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
-const Index = () => (
-  <>
-    <Helmet>
-      <title>Sewa Apartemen Gresik – Unit Gunawangsa | Transit & Harian</title>
-      <meta name="description" content="Sewa apartemen Gunawangsa Gresik langsung dari owner. Unit bersih, AC, WiFi, Smart TV Netflix. Tersedia sewa transit per jam & harian. Check-in resmi via admin." />
-      <meta name="keywords" content="sewa apartemen gresik, sewa apartemen gunawangsa gresik, apartemen transit gresik, sewa harian gresik" />
-      <link rel="canonical" href="https://gunawangsagresik.com" />
-    </Helmet>
+const Index = () => {
+  const { settings } = useSiteSettings();
 
-    <div className="max-w-lg mx-auto bg-background min-h-screen pb-36">
-      <AppHeader />
-      <HeroSlider />
-      <PropertyInfo />
-      <PricingCards />
-      <VirtualTour />
-      <FacilitiesGrid />
-      <TrustSection />
-      <Testimonials />
-      <LocationSection />
-      
-      {/* SEO footer */}
-      <footer className="px-4 py-6 text-center">
-        <p className="text-xs text-muted-foreground">
-          © 2026 Sewa Apartemen Gunawangsa Gresik. Dikelola langsung oleh owner.
-        </p>
-      </footer>
-    </div>
+  return (
+    <>
+      <Helmet>
+        <title>{settings.meta_title || "Sewa Apartemen Gresik – Unit Gunawangsa | Transit & Harian"}</title>
+        <meta name="description" content={settings.meta_description || "Sewa apartemen Gunawangsa Gresik langsung dari owner."} />
+        <meta name="keywords" content={settings.meta_keywords || "sewa apartemen gresik"} />
+        <link rel="canonical" href={settings.canonical_url || "https://sewakamarperjam.lovable.app"} />
+      </Helmet>
 
-    <FloatingCTA />
-    <BottomNav />
-  </>
-);
+      <div className="max-w-lg mx-auto bg-background min-h-screen pb-36">
+        <AppHeader />
+        <HeroSlider />
+        <PropertyInfo />
+        <PricingCards />
+        <VirtualTour />
+        <FacilitiesGrid />
+        <TrustSection />
+        <Testimonials />
+        <LocationSection />
+
+        <footer className="px-4 py-6 text-center">
+          <p className="text-xs text-muted-foreground">
+            © 2026 {settings.site_name || "Sewa Apartemen Gunawangsa Gresik"}. Dikelola langsung oleh owner.
+          </p>
+        </footer>
+      </div>
+
+      <FloatingCTA />
+      <BottomNav />
+    </>
+  );
+};
 
 export default Index;

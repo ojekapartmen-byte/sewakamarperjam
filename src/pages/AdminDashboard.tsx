@@ -293,31 +293,67 @@ const AdminDashboard = () => {
 
           {/* SETTINGS TAB */}
           <TabsContent value="settings" className="space-y-4">
+            {/* Header & Branding */}
             <div className="bg-card rounded-2xl p-4 shadow-sm border border-border space-y-4">
               <h2 className="font-bold text-foreground flex items-center gap-2">
-                <Settings size={18} /> Pengaturan Situs
+                <Settings size={18} /> Header & Branding
               </h2>
-
+              <div>
+                <label className="text-xs font-semibold text-muted-foreground">Nama Website</label>
+                <Input value={settings.site_name || ""} onChange={(e) => updateSetting("site_name", e.target.value)} placeholder="Gunawangsa Gresik" className="mt-1" />
+              </div>
+              <div>
+                <label className="text-xs font-semibold text-muted-foreground">Tagline</label>
+                <Input value={settings.site_tagline || ""} onChange={(e) => updateSetting("site_tagline", e.target.value)} placeholder="Sewa Apartemen Transit & Harian" className="mt-1" />
+              </div>
               <div>
                 <label className="text-xs font-semibold text-muted-foreground">Judul Properti</label>
                 <Input value={settings.property_title || ""} onChange={(e) => updateSetting("property_title", e.target.value)} className="mt-1" />
               </div>
-
               <div>
-                <label className="text-xs font-semibold text-muted-foreground">Deskripsi</label>
+                <label className="text-xs font-semibold text-muted-foreground">Deskripsi Properti</label>
                 <Textarea value={settings.property_description || ""} onChange={(e) => updateSetting("property_description", e.target.value)} rows={3} className="mt-1" />
               </div>
+            </div>
 
+            {/* SEO Settings */}
+            <div className="bg-card rounded-2xl p-4 shadow-sm border border-border space-y-4">
+              <h2 className="font-bold text-foreground flex items-center gap-2">
+                <Settings size={18} /> SEO On-Page
+              </h2>
+              <div>
+                <label className="text-xs font-semibold text-muted-foreground">Meta Title</label>
+                <Input value={settings.meta_title || ""} onChange={(e) => updateSetting("meta_title", e.target.value)} className="mt-1" />
+                <p className="text-[10px] text-muted-foreground mt-0.5">{(settings.meta_title || "").length}/60 karakter</p>
+              </div>
+              <div>
+                <label className="text-xs font-semibold text-muted-foreground">Meta Description</label>
+                <Textarea value={settings.meta_description || ""} onChange={(e) => updateSetting("meta_description", e.target.value)} rows={3} className="mt-1" />
+                <p className="text-[10px] text-muted-foreground mt-0.5">{(settings.meta_description || "").length}/160 karakter</p>
+              </div>
+              <div>
+                <label className="text-xs font-semibold text-muted-foreground">Meta Keywords</label>
+                <Input value={settings.meta_keywords || ""} onChange={(e) => updateSetting("meta_keywords", e.target.value)} className="mt-1" />
+              </div>
+              <div>
+                <label className="text-xs font-semibold text-muted-foreground">Canonical URL</label>
+                <Input value={settings.canonical_url || ""} onChange={(e) => updateSetting("canonical_url", e.target.value)} className="mt-1" />
+              </div>
+            </div>
+
+            {/* WhatsApp & Pricing */}
+            <div className="bg-card rounded-2xl p-4 shadow-sm border border-border space-y-4">
+              <h2 className="font-bold text-foreground flex items-center gap-2">
+                <Settings size={18} /> WhatsApp & Harga
+              </h2>
               <div>
                 <label className="text-xs font-semibold text-muted-foreground">Nomor WhatsApp</label>
                 <Input value={settings.whatsapp_number || ""} onChange={(e) => updateSetting("whatsapp_number", e.target.value)} placeholder="6281234567890" className="mt-1" />
               </div>
-
               <div>
                 <label className="text-xs font-semibold text-muted-foreground">Pesan WA Default</label>
                 <Textarea value={settings.whatsapp_message || ""} onChange={(e) => updateSetting("whatsapp_message", e.target.value)} rows={2} className="mt-1" />
               </div>
-
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="text-xs font-semibold text-muted-foreground">Harga Transit (Rp)</label>
@@ -328,11 +364,11 @@ const AdminDashboard = () => {
                   <Input type="number" value={settings.price_daily || ""} onChange={(e) => updateSetting("price_daily", e.target.value)} className="mt-1" />
                 </div>
               </div>
-
-              <Button onClick={saveSettings} className="w-full gap-2">
-                <Save size={16} /> Simpan Pengaturan
-              </Button>
             </div>
+
+            <Button onClick={saveSettings} className="w-full gap-2">
+              <Save size={16} /> Simpan Semua Pengaturan
+            </Button>
           </TabsContent>
         </Tabs>
       </div>

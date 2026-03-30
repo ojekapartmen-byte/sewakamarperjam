@@ -1,0 +1,28 @@
+import { Helmet } from "react-helmet-async";
+import AppHeader from "@/components/AppHeader";
+import BottomNav from "@/components/BottomNav";
+import FloatingCTA from "@/components/FloatingCTA";
+import VirtualTour from "@/components/VirtualTour";
+import HeroSlider from "@/components/HeroSlider";
+
+const GaleriPage = () => (
+  <>
+    <Helmet>
+      <title>Tur 3D & Galeri Foto Apartemen Gunawangsa Gresik</title>
+      <meta name="description" content="Lihat tur virtual 3D dan galeri foto apartemen Gunawangsa Gresik. Bukti langsung unit bersih, nyaman, dan siap huni." />
+    </Helmet>
+    <div className="max-w-lg mx-auto bg-background min-h-screen pb-36">
+      <AppHeader />
+      <div className="px-4 py-6">
+        <h1 className="text-xl font-bold text-foreground mb-1">Tur 3D & Galeri Foto</h1>
+        <p className="text-sm text-muted-foreground mb-4">Lihat langsung kondisi unit sebelum booking</p>
+      </div>
+      <HeroSlider />
+      <VirtualTour />
+    </div>
+    <FloatingCTA />
+    <BottomNav />
+  </>
+);
+
+export default GaleriPage;
