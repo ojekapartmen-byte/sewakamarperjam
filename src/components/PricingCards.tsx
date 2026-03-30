@@ -18,9 +18,9 @@ const PricingCards = () => {
             <Clock size={24} className="text-accent" />
           </div>
           <h3 className="font-bold text-foreground text-base">Sewa Kamar</h3>
-          <p className="text-sm text-muted-foreground mt-1">Per Jam</p>
+          <p className="text-sm text-muted-foreground mt-1">Per 2 Jam</p>
           <p className="text-heading-sm text-accent mt-2">{formatRupiah(settings.price_transit, "75000")}</p>
-          <p className="text-xs text-muted-foreground">/ jam · Tanpa biaya tambahan</p>
+          <p className="text-xs text-muted-foreground">/ 2 jam · Tanpa biaya tambahan</p>
         </div>
         <div className="bg-primary rounded-2xl p-4 shadow-sm">
           <div className="bg-primary-foreground/20 rounded-xl p-2.5 w-fit mb-3">
