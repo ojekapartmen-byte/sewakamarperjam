@@ -1,17 +1,11 @@
-import { Home, Sparkles, MapPin, MessageCircle } from "lucide-react";
-import { useSiteSettings } from "@/hooks/useSiteSettings";
+import { Home, Sparkles, MapPin, FileText } from "lucide-react";
 
 const BottomNav = () => {
-  const { settings } = useSiteSettings();
-  const waNumber = settings.whatsapp_number || "6281234567890";
-  const waMessage = settings.whatsapp_message || "Halo, saya ingin pesan kamar apartemen Gunawangsa Gresik";
-  const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
-
   const navItems = [
-    { icon: Home, label: "Beranda", href: "#" },
-    { icon: Sparkles, label: "Fasilitas", href: "#fasilitas" },
-    { icon: MapPin, label: "Lokasi", href: "#lokasi" },
-    { icon: MessageCircle, label: "Chat WA", href: waUrl, external: true },
+    { icon: Home, label: "Beranda", href: "/" },
+    { icon: Sparkles, label: "Fasilitas", href: "/#fasilitas" },
+    { icon: MapPin, label: "Lokasi", href: "/#lokasi" },
+    { icon: FileText, label: "Blog", href: "/blog" }, // Ini tombol Blog yang baru
   ];
 
   return (
