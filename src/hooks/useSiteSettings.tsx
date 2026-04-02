@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
 export type SiteSettings = Record<string, string>;
@@ -6,9 +6,10 @@ export type SiteSettings = Record<string, string>;
 export const useSiteSettings = () => {
   const [settings, setSettings] = useState<SiteSettings>({});
   const [loading, setLoading] = useState(true);
+  const subscribedRef = useRef(false);
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetchData = async () => {
       const { data } = await supabase.from("site_settings").select("*");
       const map: SiteSettings = {};
       data?.forEach((row: { key: string; value: string }) => {
@@ -17,11 +18,13 @@ export const useSiteSettings = () => {
       setSettings(map);
       setLoading(false);
     };
-    fetch();
+    fetchData();
 
-    const channelName = `site_settings_realtime_${Date.now()}`;
+    if (subscribedRef.current) return;
+    subscribedRef.current = true;
+
     const channel = supabase
-      .channel(channelName)
+      .channel(`site_settings_rt_${crypto.randomUUID()}`)
       .on("postgres_changes", { event: "*", schema: "public", table: "site_settings" }, (payload) => {
         const row = payload.new as { key: string; value: string } | undefined;
         if (row) {
@@ -30,7 +33,10 @@ export const useSiteSettings = () => {
       })
       .subscribe();
 
-    return () => { supabase.removeChannel(channel); };
+    return () => {
+      subscribedRef.current = false;
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   return { settings, loading };
@@ -39,9 +45,10 @@ export const useSiteSettings = () => {
 export const useTestimonials = () => {
   const [testimonials, setTestimonials] = useState<Array<{ id: string; name: string; text: string; rating: number }>>([]);
   const [loading, setLoading] = useState(true);
+  const subscribedRef = useRef(false);
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetchData = async () => {
       const { data } = await supabase
         .from("testimonials")
         .select("*")
@@ -50,17 +57,22 @@ export const useTestimonials = () => {
       setTestimonials(data || []);
       setLoading(false);
     };
-    fetch();
+    fetchData();
 
-    const channelName = `testimonials_realtime_${Date.now()}`;
+    if (subscribedRef.current) return;
+    subscribedRef.current = true;
+
     const channel = supabase
-      .channel(channelName)
+      .channel(`testimonials_rt_${crypto.randomUUID()}`)
       .on("postgres_changes", { event: "*", schema: "public", table: "testimonials" }, () => {
-        fetch();
+        fetchData();
       })
       .subscribe();
 
-    return () => { supabase.removeChannel(channel); };
+    return () => {
+      subscribedRef.current = false;
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   return { testimonials, loading };
