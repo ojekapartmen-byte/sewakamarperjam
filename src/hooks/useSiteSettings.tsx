@@ -52,8 +52,9 @@ export const useTestimonials = () => {
     };
     fetch();
 
+    const channelName = `testimonials_realtime_${Date.now()}`;
     const channel = supabase
-      .channel("testimonials_realtime")
+      .channel(channelName)
       .on("postgres_changes", { event: "*", schema: "public", table: "testimonials" }, () => {
         fetch();
       })
