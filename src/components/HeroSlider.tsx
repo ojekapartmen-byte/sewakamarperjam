@@ -25,9 +25,10 @@ const HeroSlider = () => {
           key={i}
           src={slide.src}
           alt={slide.alt}
-          width={1200}
-          height={800}
+          width={512}
+          height={384}
           loading={i === 0 ? "eager" : "lazy"}
+          {...(i === 0 ? { fetchPriority: "high" as const } : {})}
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${i === current ? "opacity-100" : "opacity-0"}`}
         />
       ))}
