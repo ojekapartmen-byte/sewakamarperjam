@@ -19,8 +19,9 @@ export const useSiteSettings = () => {
     };
     fetch();
 
+    const channelName = `site_settings_realtime_${Date.now()}`;
     const channel = supabase
-      .channel("site_settings_realtime")
+      .channel(channelName)
       .on("postgres_changes", { event: "*", schema: "public", table: "site_settings" }, (payload) => {
         const row = payload.new as { key: string; value: string } | undefined;
         if (row) {
@@ -51,8 +52,9 @@ export const useTestimonials = () => {
     };
     fetch();
 
+    const channelName = `testimonials_realtime_${Date.now()}`;
     const channel = supabase
-      .channel("testimonials_realtime")
+      .channel(channelName)
       .on("postgres_changes", { event: "*", schema: "public", table: "testimonials" }, () => {
         fetch();
       })
