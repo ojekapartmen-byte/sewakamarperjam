@@ -157,6 +157,72 @@ const AdminDashboard = () => {
     fetchAll();
   };
 
+  // Blog handlers
+  const generateSlug = (title: string) =>
+    title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
+  const resetPostForm = () => {
+    setEditingPost(null);
+    setPostTitle("");
+    setPostSlug("");
+    setPostExcerpt("");
+    setPostContent("");
+    setPostImageUrl("");
+    setPostPublished(false);
+    setShowPostForm(false);
+  };
+
+  const editPost = (post: BlogPost) => {
+    setEditingPost(post);
+    setPostTitle(post.title);
+    setPostSlug(post.slug);
+    setPostExcerpt(post.excerpt);
+    setPostContent(post.content);
+    setPostImageUrl(post.image_url || "");
+    setPostPublished(post.is_published);
+    setShowPostForm(true);
+  };
+
+  const savePost = async () => {
+    if (!postTitle.trim() || !postSlug.trim()) return;
+    const payload = {
+      title: postTitle.trim(),
+      slug: postSlug.trim(),
+      excerpt: postExcerpt.trim(),
+      content: postContent.trim(),
+      image_url: postImageUrl.trim() || null,
+      is_published: postPublished,
+      published_at: postPublished ? new Date().toISOString() : null,
+    };
+    let error;
+    if (editingPost) {
+      ({ error } = await supabase.from("blog_posts").update(payload).eq("id", editingPost.id));
+    } else {
+      ({ error } = await supabase.from("blog_posts").insert(payload));
+    }
+    if (error) {
+      toast({ title: "Gagal", description: error.message, variant: "destructive" });
+    } else {
+      resetPostForm();
+      fetchAll();
+      toast({ title: editingPost ? "Artikel diperbarui" : "Artikel ditambahkan" });
+    }
+  };
+
+  const deletePost = async (id: string) => {
+    await supabase.from("blog_posts").delete().eq("id", id);
+    fetchAll();
+    toast({ title: "Artikel dihapus" });
+  };
+
+  const togglePostPublished = async (post: BlogPost) => {
+    await supabase.from("blog_posts").update({
+      is_published: !post.is_published,
+      published_at: !post.is_published ? new Date().toISOString() : post.published_at,
+    }).eq("id", post.id);
+    fetchAll();
+  };
+
   // Settings handlers
   const updateSetting = (key: string, value: string) => {
     setSettings((prev) => ({ ...prev, [key]: value }));
