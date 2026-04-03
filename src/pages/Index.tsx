@@ -3,7 +3,7 @@ import AppHeader from "@/components/AppHeader";
 import HeroSlider from "@/components/HeroSlider";
 import PropertyInfo from "@/components/PropertyInfo";
 import PricingCards from "@/components/PricingCards";
-import VirtualTour from "@/components/VirtualTour";
+
 import FacilitiesGrid from "@/components/FacilitiesGrid";
 import TrustSection from "@/components/TrustSection";
 import Testimonials from "@/components/Testimonials";
