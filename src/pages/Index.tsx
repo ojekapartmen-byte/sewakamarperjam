@@ -3,6 +3,7 @@ import AppHeader from "@/components/AppHeader";
 import HeroSlider from "@/components/HeroSlider";
 import PropertyInfo from "@/components/PropertyInfo";
 import PricingCards from "@/components/PricingCards";
+import LatestArticles from "@/components/LatestArticles";
 
 import FacilitiesGrid from "@/components/FacilitiesGrid";
 import TrustSection from "@/components/TrustSection";
@@ -33,6 +34,7 @@ const Index = () => {
         <FacilitiesGrid />
         <TrustSection />
         <Testimonials />
+        <LatestArticles />
         <LocationSection />
 
         <footer className="px-4 py-6 text-center">
