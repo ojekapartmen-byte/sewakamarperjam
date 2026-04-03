@@ -273,10 +273,11 @@ const AdminDashboard = () => {
         </div>
 
         <Tabs defaultValue="rooms">
-          <TabsList className="w-full grid grid-cols-3 mb-4">
+          <TabsList className="w-full grid grid-cols-4 mb-4">
             <TabsTrigger value="rooms" className="gap-1 text-xs"><DoorOpen size={14} /> Kamar</TabsTrigger>
+            <TabsTrigger value="blog" className="gap-1 text-xs"><FileText size={14} /> Blog</TabsTrigger>
             <TabsTrigger value="testimonials" className="gap-1 text-xs"><MessageSquare size={14} /> Testimoni</TabsTrigger>
-            <TabsTrigger value="settings" className="gap-1 text-xs"><Settings size={14} /> Pengaturan</TabsTrigger>
+            <TabsTrigger value="settings" className="gap-1 text-xs"><Settings size={14} /> Setting</TabsTrigger>
           </TabsList>
 
           {/* ROOMS TAB */}
