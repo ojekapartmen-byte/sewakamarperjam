@@ -18,7 +18,7 @@ const GaleriPage = () => (
         <p className="text-sm text-muted-foreground mb-4">Lihat langsung kondisi unit sebelum booking</p>
       </div>
       <HeroSlider />
-      <VirtualTour />
+      
     </div>
     <FloatingCTA />
     <BottomNav />

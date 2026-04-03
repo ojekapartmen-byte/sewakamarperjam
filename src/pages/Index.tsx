@@ -29,7 +29,7 @@ const Index = () => {
         <HeroSlider />
         <PropertyInfo />
         <PricingCards />
-        <VirtualTour />
+        
         <FacilitiesGrid />
         <TrustSection />
         <Testimonials />

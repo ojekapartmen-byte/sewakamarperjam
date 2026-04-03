@@ -1,4 +1,4 @@
-import AppHeader from "../components/ui/AppHeader"; // Sesuaikan jika path header Anda berbeda
+import AppHeader from "../components/AppHeader"; // Sesuaikan jika path header Anda berbeda
 import BlogList from "../components/BlogList";
 import BottomNav from "../components/BottomNav";
 
