@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { LogOut, Plus, Trash2, ArrowLeft, DoorOpen, MessageSquare, Settings, Save, Star } from "lucide-react";
+import { LogOut, Plus, Trash2, ArrowLeft, DoorOpen, MessageSquare, Settings, Save, Star, FileText, Pencil } from "lucide-react";
 import type { Tables } from "@/integrations/supabase/types";
 import RoomPhotos from "@/components/RoomPhotos";
 
@@ -25,6 +25,17 @@ interface Testimonial {
 
 type SiteSettings = Record<string, string>;
 
+interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  image_url: string | null;
+  is_published: boolean;
+  published_at: string | null;
+}
+
 const AdminDashboard = () => {
   const { user, isAdmin, loading, signOut } = useAuth();
   const navigate = useNavigate();
@@ -32,6 +43,7 @@ const AdminDashboard = () => {
 
   const [rooms, setRooms] = useState<Room[]>([]);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [settings, setSettings] = useState<SiteSettings>({});
   const [fetching, setFetching] = useState(true);
 
@@ -45,6 +57,16 @@ const AdminDashboard = () => {
   const [newTestText, setNewTestText] = useState("");
   const [newTestRating, setNewTestRating] = useState("5");
 
+  // Blog form
+  const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
+  const [postTitle, setPostTitle] = useState("");
+  const [postSlug, setPostSlug] = useState("");
+  const [postExcerpt, setPostExcerpt] = useState("");
+  const [postContent, setPostContent] = useState("");
+  const [postImageUrl, setPostImageUrl] = useState("");
+  const [postPublished, setPostPublished] = useState(false);
+  const [showPostForm, setShowPostForm] = useState(false);
+
   useEffect(() => {
     if (!loading && (!user || !isAdmin)) {
       navigate("/admin/login", { replace: true });
@@ -52,13 +74,15 @@ const AdminDashboard = () => {
   }, [user, isAdmin, loading, navigate]);
 
   const fetchAll = async () => {
-    const [roomsRes, testRes, settingsRes] = await Promise.all([
+    const [roomsRes, testRes, settingsRes, blogRes] = await Promise.all([
       supabase.from("rooms").select("*").order("created_at"),
       supabase.from("testimonials").select("*").order("sort_order"),
       supabase.from("site_settings").select("*"),
+      supabase.from("blog_posts").select("*").order("published_at", { ascending: false }),
     ]);
     setRooms(roomsRes.data || []);
     setTestimonials((testRes.data as Testimonial[]) || []);
+    setBlogPosts((blogRes.data as BlogPost[]) || []);
     const map: SiteSettings = {};
     settingsRes.data?.forEach((row: { key: string; value: string }) => {
       map[row.key] = row.value;
@@ -133,6 +157,72 @@ const AdminDashboard = () => {
     fetchAll();
   };
 
+  // Blog handlers
+  const generateSlug = (title: string) =>
+    title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
+  const resetPostForm = () => {
+    setEditingPost(null);
+    setPostTitle("");
+    setPostSlug("");
+    setPostExcerpt("");
+    setPostContent("");
+    setPostImageUrl("");
+    setPostPublished(false);
+    setShowPostForm(false);
+  };
+
+  const editPost = (post: BlogPost) => {
+    setEditingPost(post);
+    setPostTitle(post.title);
+    setPostSlug(post.slug);
+    setPostExcerpt(post.excerpt);
+    setPostContent(post.content);
+    setPostImageUrl(post.image_url || "");
+    setPostPublished(post.is_published);
+    setShowPostForm(true);
+  };
+
+  const savePost = async () => {
+    if (!postTitle.trim() || !postSlug.trim()) return;
+    const payload = {
+      title: postTitle.trim(),
+      slug: postSlug.trim(),
+      excerpt: postExcerpt.trim(),
+      content: postContent.trim(),
+      image_url: postImageUrl.trim() || null,
+      is_published: postPublished,
+      published_at: postPublished ? new Date().toISOString() : null,
+    };
+    let error;
+    if (editingPost) {
+      ({ error } = await supabase.from("blog_posts").update(payload).eq("id", editingPost.id));
+    } else {
+      ({ error } = await supabase.from("blog_posts").insert(payload));
+    }
+    if (error) {
+      toast({ title: "Gagal", description: error.message, variant: "destructive" });
+    } else {
+      resetPostForm();
+      fetchAll();
+      toast({ title: editingPost ? "Artikel diperbarui" : "Artikel ditambahkan" });
+    }
+  };
+
+  const deletePost = async (id: string) => {
+    await supabase.from("blog_posts").delete().eq("id", id);
+    fetchAll();
+    toast({ title: "Artikel dihapus" });
+  };
+
+  const togglePostPublished = async (post: BlogPost) => {
+    await supabase.from("blog_posts").update({
+      is_published: !post.is_published,
+      published_at: !post.is_published ? new Date().toISOString() : post.published_at,
+    }).eq("id", post.id);
+    fetchAll();
+  };
+
   // Settings handlers
   const updateSetting = (key: string, value: string) => {
     setSettings((prev) => ({ ...prev, [key]: value }));
@@ -183,10 +273,11 @@ const AdminDashboard = () => {
         </div>
 
         <Tabs defaultValue="rooms">
-          <TabsList className="w-full grid grid-cols-3 mb-4">
+          <TabsList className="w-full grid grid-cols-4 mb-4">
             <TabsTrigger value="rooms" className="gap-1 text-xs"><DoorOpen size={14} /> Kamar</TabsTrigger>
+            <TabsTrigger value="blog" className="gap-1 text-xs"><FileText size={14} /> Blog</TabsTrigger>
             <TabsTrigger value="testimonials" className="gap-1 text-xs"><MessageSquare size={14} /> Testimoni</TabsTrigger>
-            <TabsTrigger value="settings" className="gap-1 text-xs"><Settings size={14} /> Pengaturan</TabsTrigger>
+            <TabsTrigger value="settings" className="gap-1 text-xs"><Settings size={14} /> Setting</TabsTrigger>
           </TabsList>
 
           {/* ROOMS TAB */}
@@ -248,6 +339,71 @@ const AdminDashboard = () => {
                       </div>
                     </div>
                     <RoomPhotos roomId={room.id} />
+                  </div>
+                ))}
+              </div>
+            )}
+          </TabsContent>
+
+          {/* BLOG TAB */}
+          <TabsContent value="blog" className="space-y-4">
+            {showPostForm ? (
+              <div className="bg-card rounded-2xl p-4 shadow-sm border border-border space-y-3">
+                <h2 className="font-bold text-foreground flex items-center gap-2">
+                  <FileText size={18} /> {editingPost ? "Edit Artikel" : "Tambah Artikel"}
+                </h2>
+                <Input placeholder="Judul artikel" value={postTitle} onChange={(e) => { setPostTitle(e.target.value); if (!editingPost) setPostSlug(generateSlug(e.target.value)); }} />
+                <div>
+                  <label className="text-xs text-muted-foreground">Slug URL</label>
+                  <Input value={postSlug} onChange={(e) => setPostSlug(e.target.value)} placeholder="judul-artikel" />
+                </div>
+                <Input placeholder="URL Gambar Cover (opsional)" value={postImageUrl} onChange={(e) => setPostImageUrl(e.target.value)} />
+                <Textarea placeholder="Ringkasan singkat..." value={postExcerpt} onChange={(e) => setPostExcerpt(e.target.value)} rows={2} />
+                <Textarea placeholder="Konten artikel lengkap..." value={postContent} onChange={(e) => setPostContent(e.target.value)} rows={8} />
+                <div className="flex items-center gap-2">
+                  <Switch checked={postPublished} onCheckedChange={setPostPublished} />
+                  <span className="text-sm text-foreground">{postPublished ? "Dipublikasikan" : "Draft"}</span>
+                </div>
+                <div className="flex gap-2">
+                  <Button onClick={savePost} className="flex-1 gap-1"><Save size={16} /> Simpan</Button>
+                  <Button variant="outline" onClick={resetPostForm}>Batal</Button>
+                </div>
+              </div>
+            ) : (
+              <Button onClick={() => setShowPostForm(true)} className="w-full gap-1"><Plus size={16} /> Tambah Artikel Baru</Button>
+            )}
+
+            <h2 className="font-bold text-foreground flex items-center gap-2">
+              <FileText size={18} /> Daftar Artikel ({blogPosts.length})
+            </h2>
+
+            {blogPosts.length === 0 ? (
+              <div className="bg-card rounded-2xl p-6 text-center border border-border">
+                <p className="text-muted-foreground">Belum ada artikel.</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {blogPosts.map((post) => (
+                  <div key={post.id} className="bg-card rounded-2xl p-4 shadow-sm border border-border">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-bold text-foreground text-sm line-clamp-1">{post.title}</h3>
+                        <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{post.excerpt}</p>
+                        <p className="text-xs text-muted-foreground mt-1">/{post.slug}</p>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <span className={`text-xs font-semibold ${post.is_published ? "text-green-600" : "text-muted-foreground"}`}>
+                          {post.is_published ? "Publik" : "Draft"}
+                        </span>
+                        <Switch checked={post.is_published} onCheckedChange={() => togglePostPublished(post)} />
+                        <button onClick={() => editPost(post)} className="text-muted-foreground hover:text-foreground">
+                          <Pencil size={14} />
+                        </button>
+                        <button onClick={() => deletePost(post.id)} className="text-destructive/60 hover:text-destructive">
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
