@@ -43,6 +43,7 @@ const AdminDashboard = () => {
 
   const [rooms, setRooms] = useState<Room[]>([]);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [settings, setSettings] = useState<SiteSettings>({});
   const [fetching, setFetching] = useState(true);
 
