@@ -74,13 +74,15 @@ const AdminDashboard = () => {
   }, [user, isAdmin, loading, navigate]);
 
   const fetchAll = async () => {
-    const [roomsRes, testRes, settingsRes] = await Promise.all([
+    const [roomsRes, testRes, settingsRes, blogRes] = await Promise.all([
       supabase.from("rooms").select("*").order("created_at"),
       supabase.from("testimonials").select("*").order("sort_order"),
       supabase.from("site_settings").select("*"),
+      supabase.from("blog_posts").select("*").order("published_at", { ascending: false }),
     ]);
     setRooms(roomsRes.data || []);
     setTestimonials((testRes.data as Testimonial[]) || []);
+    setBlogPosts((blogRes.data as BlogPost[]) || []);
     const map: SiteSettings = {};
     settingsRes.data?.forEach((row: { key: string; value: string }) => {
       map[row.key] = row.value;
