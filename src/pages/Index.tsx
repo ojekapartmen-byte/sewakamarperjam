@@ -34,6 +34,7 @@ const Index = () => {
         <FacilitiesGrid />
         <TrustSection />
         <Testimonials />
+        <LatestArticles />
         <LocationSection />
 
         <footer className="px-4 py-6 text-center">
