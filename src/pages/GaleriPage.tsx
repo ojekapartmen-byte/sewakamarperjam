@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 import AppHeader from "@/components/AppHeader";
 import BottomNav from "@/components/BottomNav";
 import FloatingCTA from "@/components/FloatingCTA";
-import VirtualTour from "@/components/VirtualTour";
+
 import HeroSlider from "@/components/HeroSlider";
 
 const GaleriPage = () => (
@@ -18,7 +18,7 @@ const GaleriPage = () => (
         <p className="text-sm text-muted-foreground mb-4">Lihat langsung kondisi unit sebelum booking</p>
       </div>
       <HeroSlider />
-      <VirtualTour />
+      
     </div>
     <FloatingCTA />
     <BottomNav />

@@ -11,7 +11,7 @@ const BottomNav = () => {
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border shadow-[0_-2px_10px_rgba(0,0,0,0.06)] pb-safe">
       <div className="max-w-lg mx-auto flex items-center justify-around py-2">
-        {navItems.map(({ icon: Icon, label, href, external }) => (
+        {navItems.map(({ icon: Icon, label, href }) => (
           <a
             key={label}
             href={href}
