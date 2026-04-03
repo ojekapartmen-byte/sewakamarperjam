@@ -345,6 +345,71 @@ const AdminDashboard = () => {
             )}
           </TabsContent>
 
+          {/* BLOG TAB */}
+          <TabsContent value="blog" className="space-y-4">
+            {showPostForm ? (
+              <div className="bg-card rounded-2xl p-4 shadow-sm border border-border space-y-3">
+                <h2 className="font-bold text-foreground flex items-center gap-2">
+                  <FileText size={18} /> {editingPost ? "Edit Artikel" : "Tambah Artikel"}
+                </h2>
+                <Input placeholder="Judul artikel" value={postTitle} onChange={(e) => { setPostTitle(e.target.value); if (!editingPost) setPostSlug(generateSlug(e.target.value)); }} />
+                <div>
+                  <label className="text-xs text-muted-foreground">Slug URL</label>
+                  <Input value={postSlug} onChange={(e) => setPostSlug(e.target.value)} placeholder="judul-artikel" />
+                </div>
+                <Input placeholder="URL Gambar Cover (opsional)" value={postImageUrl} onChange={(e) => setPostImageUrl(e.target.value)} />
+                <Textarea placeholder="Ringkasan singkat..." value={postExcerpt} onChange={(e) => setPostExcerpt(e.target.value)} rows={2} />
+                <Textarea placeholder="Konten artikel lengkap..." value={postContent} onChange={(e) => setPostContent(e.target.value)} rows={8} />
+                <div className="flex items-center gap-2">
+                  <Switch checked={postPublished} onCheckedChange={setPostPublished} />
+                  <span className="text-sm text-foreground">{postPublished ? "Dipublikasikan" : "Draft"}</span>
+                </div>
+                <div className="flex gap-2">
+                  <Button onClick={savePost} className="flex-1 gap-1"><Save size={16} /> Simpan</Button>
+                  <Button variant="outline" onClick={resetPostForm}>Batal</Button>
+                </div>
+              </div>
+            ) : (
+              <Button onClick={() => setShowPostForm(true)} className="w-full gap-1"><Plus size={16} /> Tambah Artikel Baru</Button>
+            )}
+
+            <h2 className="font-bold text-foreground flex items-center gap-2">
+              <FileText size={18} /> Daftar Artikel ({blogPosts.length})
+            </h2>
+
+            {blogPosts.length === 0 ? (
+              <div className="bg-card rounded-2xl p-6 text-center border border-border">
+                <p className="text-muted-foreground">Belum ada artikel.</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {blogPosts.map((post) => (
+                  <div key={post.id} className="bg-card rounded-2xl p-4 shadow-sm border border-border">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-bold text-foreground text-sm line-clamp-1">{post.title}</h3>
+                        <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{post.excerpt}</p>
+                        <p className="text-xs text-muted-foreground mt-1">/{post.slug}</p>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <span className={`text-xs font-semibold ${post.is_published ? "text-green-600" : "text-muted-foreground"}`}>
+                          {post.is_published ? "Publik" : "Draft"}
+                        </span>
+                        <Switch checked={post.is_published} onCheckedChange={() => togglePostPublished(post)} />
+                        <button onClick={() => editPost(post)} className="text-muted-foreground hover:text-foreground">
+                          <Pencil size={14} />
+                        </button>
+                        <button onClick={() => deletePost(post.id)} className="text-destructive/60 hover:text-destructive">
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </TabsContent>
+
           {/* TESTIMONIALS TAB */}
           <TabsContent value="testimonials" className="space-y-4">
             <div className="bg-card rounded-2xl p-4 shadow-sm border border-border">
