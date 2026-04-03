@@ -25,6 +25,17 @@ interface Testimonial {
 
 type SiteSettings = Record<string, string>;
 
+interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  image_url: string | null;
+  is_published: boolean;
+  published_at: string | null;
+}
+
 const AdminDashboard = () => {
   const { user, isAdmin, loading, signOut } = useAuth();
   const navigate = useNavigate();
