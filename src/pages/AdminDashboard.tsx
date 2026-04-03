@@ -57,6 +57,16 @@ const AdminDashboard = () => {
   const [newTestText, setNewTestText] = useState("");
   const [newTestRating, setNewTestRating] = useState("5");
 
+  // Blog form
+  const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
+  const [postTitle, setPostTitle] = useState("");
+  const [postSlug, setPostSlug] = useState("");
+  const [postExcerpt, setPostExcerpt] = useState("");
+  const [postContent, setPostContent] = useState("");
+  const [postImageUrl, setPostImageUrl] = useState("");
+  const [postPublished, setPostPublished] = useState(false);
+  const [showPostForm, setShowPostForm] = useState(false);
+
   useEffect(() => {
     if (!loading && (!user || !isAdmin)) {
       navigate("/admin/login", { replace: true });
