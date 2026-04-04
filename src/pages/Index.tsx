@@ -6,6 +6,7 @@ import PricingCards from "@/components/PricingCards";
 import LatestArticles from "@/components/LatestArticles";
 
 import FacilitiesGrid from "@/components/FacilitiesGrid";
+import VirtualTour from "@/components/VirtualTour";
 import TrustSection from "@/components/TrustSection";
 import Testimonials from "@/components/Testimonials";
 import LocationSection from "@/components/LocationSection";
@@ -65,6 +66,7 @@ const localBusinessJsonLd = {
         <PropertyInfo />
         <PricingCards />
         
+        <VirtualTour />
         <FacilitiesGrid />
         <TrustSection />
         <Testimonials />
