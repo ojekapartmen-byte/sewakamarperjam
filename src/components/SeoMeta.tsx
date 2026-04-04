@@ -11,7 +11,11 @@ interface SeoMetaProps {
   type?: string;
 }
 
-const SeoMeta = ({ title, description, path = "", image, type = "website" }: SeoMetaProps) => {
+interface JsonLdProps {
+  jsonLd?: Record<string, unknown>;
+}
+
+const SeoMeta = ({ title, description, path = "", image, type = "website", jsonLd }: SeoMetaProps & JsonLdProps) => {
   const url = `${SITE_URL}${path}`;
   const img = image || DEFAULT_IMAGE;
 
@@ -33,6 +37,12 @@ const SeoMeta = ({ title, description, path = "", image, type = "website" }: Seo
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={img} />
+
+      {jsonLd && (
+        <script type="application/ld+json">
+          {JSON.stringify(jsonLd)}
+        </script>
+      )}
     </Helmet>
   );
 };
