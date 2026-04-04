@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import SeoMeta from "@/components/SeoMeta";
 import AppHeader from "@/components/AppHeader";
 import HeroSlider from "@/components/HeroSlider";
 import PropertyInfo from "@/components/PropertyInfo";
