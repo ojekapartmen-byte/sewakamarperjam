@@ -43,10 +43,11 @@ const BlogList = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Blog Sewa Apartemen Gresik | Tips & Info Gunawangsa</title>
-        <meta name="description" content="Baca tips sewa apartemen Gresik, info fasilitas Gunawangsa, dan panduan wisata dekat apartemen." />
-      </Helmet>
+      <SeoMeta
+        title="Blog Sewa Apartemen Gresik | Tips & Info Gunawangsa"
+        description="Baca tips sewa apartemen Gresik, info fasilitas Gunawangsa, dan panduan wisata dekat apartemen."
+        path="/blog"
+      />
 
       <div className="max-w-lg mx-auto bg-background min-h-screen pb-24">
         <AppHeader />
