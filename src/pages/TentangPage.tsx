@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import SeoMeta from "@/components/SeoMeta";
 import AppHeader from "@/components/AppHeader";
 import BottomNav from "@/components/BottomNav";
 import FloatingCTA from "@/components/FloatingCTA";
@@ -7,10 +7,11 @@ import LocationSection from "@/components/LocationSection";
 
 const TentangPage = () => (
   <>
-    <Helmet>
-      <title>Apartemen Gunawangsa Gresik – Fasilitas & Lokasi Strategis</title>
-      <meta name="description" content="Info lengkap Apartemen Gunawangsa Gresik: fasilitas, aksesibilitas dekat tol & pusat industri, dan lingkungan sekitar." />
-    </Helmet>
+      <SeoMeta
+        title="Apartemen Gunawangsa Gresik – Fasilitas & Lokasi Strategis"
+        description="Info lengkap Apartemen Gunawangsa Gresik: fasilitas, aksesibilitas dekat tol & pusat industri, dan lingkungan sekitar."
+        path="/tentang"
+      />
     <div className="max-w-lg mx-auto bg-background min-h-screen pb-36">
       <AppHeader />
       <div className="px-4 py-6">

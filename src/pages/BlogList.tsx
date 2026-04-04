@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Helmet } from "react-helmet-async";
+import SeoMeta from "@/components/SeoMeta";
 import { Link } from "react-router-dom";
 import AppHeader from "@/components/AppHeader";
 import BottomNav from "@/components/BottomNav";
@@ -43,10 +43,11 @@ const BlogList = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Blog Sewa Apartemen Gresik | Tips & Info Gunawangsa</title>
-        <meta name="description" content="Baca tips sewa apartemen Gresik, info fasilitas Gunawangsa, dan panduan wisata dekat apartemen." />
-      </Helmet>
+      <SeoMeta
+        title="Blog Sewa Apartemen Gresik | Tips & Info Gunawangsa"
+        description="Baca tips sewa apartemen Gresik, info fasilitas Gunawangsa, dan panduan wisata dekat apartemen."
+        path="/blog"
+      />
 
       <div className="max-w-lg mx-auto bg-background min-h-screen pb-24">
         <AppHeader />

@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import SeoMeta from "@/components/SeoMeta";
 import AppHeader from "@/components/AppHeader";
 import BottomNav from "@/components/BottomNav";
 import FloatingCTA from "@/components/FloatingCTA";
@@ -20,10 +20,11 @@ const BookingPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Cara Booking Apartemen Gunawangsa Gresik – Prosedur & Pembayaran</title>
-        <meta name="description" content="Panduan lengkap cara booking apartemen Gunawangsa Gresik. Prosedur DP, metode pembayaran, dan sistem check-in yang aman." />
-      </Helmet>
+      <SeoMeta
+        title="Cara Booking Apartemen Gunawangsa Gresik – Prosedur & Pembayaran"
+        description="Panduan lengkap cara booking apartemen Gunawangsa Gresik. Prosedur DP, metode pembayaran, dan sistem check-in yang aman."
+        path="/booking"
+      />
       <div className="max-w-lg mx-auto bg-background min-h-screen pb-36">
         <AppHeader />
         <div className="px-4 py-6">

@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import SeoMeta from "@/components/SeoMeta";
 import AppHeader from "@/components/AppHeader";
 import BottomNav from "@/components/BottomNav";
 import FloatingCTA from "@/components/FloatingCTA";
@@ -12,10 +12,11 @@ const SewaHarianPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Sewa Apartemen Harian & Bulanan Gresik – Gunawangsa</title>
-        <meta name="description" content="Sewa apartemen harian dan bulanan di Gunawangsa Gresik. Hunian nyaman untuk jangka panjang dengan harga terjangkau." />
-      </Helmet>
+      <SeoMeta
+        title="Sewa Apartemen Harian & Bulanan Gresik – Gunawangsa"
+        description="Sewa apartemen harian dan bulanan di Gunawangsa Gresik. Hunian nyaman untuk jangka panjang dengan harga terjangkau."
+        path="/sewa-harian"
+      />
       <div className="max-w-lg mx-auto bg-background min-h-screen pb-36">
         <AppHeader />
         <div className="px-4 py-6">

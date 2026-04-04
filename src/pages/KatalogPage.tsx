@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import SeoMeta from "@/components/SeoMeta";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import AppHeader from "@/components/AppHeader";
@@ -42,10 +42,11 @@ const KatalogPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Sewa Apartemen Gresik – Katalog Unit Gunawangsa</title>
-        <meta name="description" content="Lihat semua unit apartemen Gunawangsa Gresik yang tersedia untuk disewa. Cek ketersediaan dan harga terbaru." />
-      </Helmet>
+      <SeoMeta
+        title="Sewa Apartemen Gresik – Katalog Unit Gunawangsa"
+        description="Lihat semua unit apartemen Gunawangsa Gresik yang tersedia untuk disewa. Cek ketersediaan dan harga terbaru."
+        path="/katalog"
+      />
       <div className="max-w-lg mx-auto bg-background min-h-screen pb-36">
         <AppHeader />
         <div className="px-4 py-6">

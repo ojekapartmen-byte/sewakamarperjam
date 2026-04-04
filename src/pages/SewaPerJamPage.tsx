@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import SeoMeta from "@/components/SeoMeta";
 import AppHeader from "@/components/AppHeader";
 import BottomNav from "@/components/BottomNav";
 import FloatingCTA from "@/components/FloatingCTA";
@@ -12,10 +12,11 @@ const SewaPerJamPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Sewa Apartemen Per Jam Gresik – Transit Gunawangsa</title>
-        <meta name="description" content="Sewa apartemen transit per jam di Gunawangsa Gresik. Cocok untuk istirahat singkat, meeting, atau perjalanan bisnis." />
-      </Helmet>
+      <SeoMeta
+        title="Sewa Apartemen Per Jam Gresik – Transit Gunawangsa"
+        description="Sewa apartemen transit per jam di Gunawangsa Gresik. Cocok untuk istirahat singkat, meeting, atau perjalanan bisnis."
+        path="/sewa-per-jam"
+      />
       <div className="max-w-lg mx-auto bg-background min-h-screen pb-36">
         <AppHeader />
         <div className="px-4 py-6">

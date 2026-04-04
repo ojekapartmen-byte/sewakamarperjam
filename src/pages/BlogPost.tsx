@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import SeoMeta from "@/components/SeoMeta";
 import { useParams, Link } from "react-router-dom";
 import AppHeader from "@/components/AppHeader";
 import BottomNav from "@/components/BottomNav";
@@ -80,10 +80,12 @@ const BlogPost = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{article.title} | Sewa Apartemen Gunawangsa Gresik</title>
-        <meta name="description" content={article.title} />
-      </Helmet>
+      <SeoMeta
+        title={`${article.title} | Sewa Apartemen Gunawangsa Gresik`}
+        description={article.title}
+        path={`/blog/${slug}`}
+        type="article"
+      />
 
       <div className="max-w-lg mx-auto bg-background min-h-screen pb-24">
         <AppHeader />
