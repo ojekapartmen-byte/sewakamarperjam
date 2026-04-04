@@ -18,12 +18,11 @@ const Index = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{settings.meta_title || "Sewa Apartemen Gresik – Unit Gunawangsa | Transit & Harian"}</title>
-        <meta name="description" content={settings.meta_description || "Sewa apartemen Gunawangsa Gresik langsung dari owner."} />
-        <meta name="keywords" content={settings.meta_keywords || "sewa apartemen gresik"} />
-        <link rel="canonical" href={settings.canonical_url || "https://sewakamarperjam.lovable.app"} />
-      </Helmet>
+      <SeoMeta
+        title={settings.meta_title || "Sewa Apartemen Gresik – Unit Gunawangsa | Transit & Harian"}
+        description={settings.meta_description || "Sewa apartemen Gunawangsa Gresik langsung dari owner."}
+        path="/"
+      />
 
       <div className="max-w-lg mx-auto bg-background min-h-screen pb-36">
         <AppHeader />

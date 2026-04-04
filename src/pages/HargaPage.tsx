@@ -6,10 +6,11 @@ import PricingCards from "@/components/PricingCards";
 
 const HargaPage = () => (
   <>
-    <Helmet>
-      <title>Harga Sewa Apartemen Gunawangsa Gresik – Transit & Harian</title>
-      <meta name="description" content="Cek harga sewa apartemen Gunawangsa Gresik terbaru. Tarif transparan untuk sewa transit per jam dan harian." />
-    </Helmet>
+      <SeoMeta
+        title="Harga Sewa Apartemen Gunawangsa Gresik – Transit & Harian"
+        description="Cek harga sewa apartemen Gunawangsa Gresik terbaru. Tarif transparan untuk sewa transit per jam dan harian."
+        path="/harga"
+      />
     <div className="max-w-lg mx-auto bg-background min-h-screen pb-36">
       <AppHeader />
       <div className="px-4 py-6">

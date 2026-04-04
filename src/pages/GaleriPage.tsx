@@ -7,10 +7,11 @@ import HeroSlider from "@/components/HeroSlider";
 
 const GaleriPage = () => (
   <>
-    <Helmet>
-      <title>Tur 3D & Galeri Foto Apartemen Gunawangsa Gresik</title>
-      <meta name="description" content="Lihat tur virtual 3D dan galeri foto apartemen Gunawangsa Gresik. Bukti langsung unit bersih, nyaman, dan siap huni." />
-    </Helmet>
+      <SeoMeta
+        title="Tur 3D & Galeri Foto Apartemen Gunawangsa Gresik"
+        description="Lihat tur virtual 3D dan galeri foto apartemen Gunawangsa Gresik. Bukti langsung unit bersih, nyaman, dan siap huni."
+        path="/galeri"
+      />
     <div className="max-w-lg mx-auto bg-background min-h-screen pb-36">
       <AppHeader />
       <div className="px-4 py-6">
