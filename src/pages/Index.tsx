@@ -66,6 +66,7 @@ const localBusinessJsonLd = {
         <PropertyInfo />
         <PricingCards />
         
+        <VirtualTour />
         <FacilitiesGrid />
         <TrustSection />
         <Testimonials />
