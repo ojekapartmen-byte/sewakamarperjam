@@ -78,14 +78,19 @@ const BlogPost = () => {
     );
   }
 
+  const plainText = article.content.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  const metaDescription =
+    plainText.length > 180 ? `${plainText.slice(0, 177).trimEnd()}…` : plainText;
+
   return (
     <>
       <SeoMeta
         title={`${article.title} | Sewa Apartemen Gunawangsa Gresik`}
-        description={article.title}
+        description={metaDescription}
         path={`/blog/${slug}`}
         type="article"
       />
+
 
       <div className="max-w-lg mx-auto bg-background min-h-screen pb-24">
         <AppHeader />

@@ -27,16 +27,17 @@ const localBusinessJsonLd = {
     "telephone": settings.whatsapp_number || "+6281234567890",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Apartemen Gunawangsa MERR",
+      "streetAddress": "Apartemen Gunawangsa Gresik, Jl. Veteran, Kebomas",
       "addressLocality": "Gresik",
       "addressRegion": "Jawa Timur",
       "addressCountry": "ID"
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": -7.2756,
-      "longitude": 112.7508
+      "latitude": -7.1683,
+      "longitude": 112.6266
     },
+
     "priceRange": "Rp 75.000 - Rp 350.000",
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
