@@ -39,11 +39,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser(session?.user ?? null);
 
       if (session?.user) {
-        Promise.resolve(
-          supabase.rpc("has_role", { _user_id: session.user.id, _role: "admin" as const })
-        ).then(({ data }) => {
+        checkAdmin(session.user.id).then((admin) => {
           if (mounted) {
-            setIsAdmin(!!data);
+            setIsAdmin(admin);
             setLoading(false);
           }
         }).catch(() => {
